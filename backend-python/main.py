@@ -16,3 +16,8 @@ app.add_middleware(
 def evaluate(req: SkillRequest):
     result = evaluate_skill(req.stamina)
     return { "result": result }
+
+@app.post("/log")
+def log_event(event: dict):
+    print("EVENT:", event)
+    return { "ok": True }
