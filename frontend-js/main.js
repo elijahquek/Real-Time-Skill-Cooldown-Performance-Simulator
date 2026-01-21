@@ -7,8 +7,11 @@ const COOLDOWN_TIME = 3;
 document.getElementById("skillBtn").onclick = async () => {
   if (!state.skillReady) return;
 
-  state.skillReady = false;
+  if (state.skillState === SkillState.READY) {
+  state.skillState = SkillState.COOLDOWN;
   state.cooldown = COOLDOWN_TIME;
+  }
+  
   state.stamina -= 15;
 
   emitSkillUsed({
@@ -27,12 +30,12 @@ document.getElementById("skillBtn").onclick = async () => {
 };
 
 function update(delta) {
-  if (!state.skillReady) {
-    state.cooldown -= delta;
-    if (state.cooldown <= 0) {
-      state.skillReady = true;
-    }
+  if (state.skillState === SkillState.COOLDOWN) {
+  state.cooldown -= delta;
+  if (state.cooldown <= 0) {
+    state.skillState = SkillState.READY;
   }
+}
   render();
 }
 
