@@ -1,7 +1,9 @@
-def evaluate_skill(stamina: float) -> str:
-    if stamina > 70:
-        return "Perfect Execution"
-    elif stamina > 40:
-        return "Normal Execution"
-    else:
-        return "Failed Execution"
+def evaluate_skill(stamina: float) -> dict:
+    return {
+        "rating": (
+            "Perfect" if stamina > 70 else
+            "Normal" if stamina > 40 else
+            "Fail"
+        ),
+        "fatigue_penalty": max(0, 100 - stamina) * 0.1
+    }
