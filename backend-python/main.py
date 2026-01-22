@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from models import SkillRequest
-from logic import evaluate_skill
+from logic import evaluate_skill, load_config
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -21,3 +21,7 @@ def evaluate(req: SkillRequest):
 def log_event(event: dict):
     print("EVENT:", event)
     return { "ok": True }
+
+@app.get("/config")
+def get_config():
+    return load_config()
