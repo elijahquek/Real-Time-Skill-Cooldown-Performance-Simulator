@@ -1,6 +1,7 @@
 import { state } from "./state.js";
 import { emitSkillUsed } from "./events.js";
 import { render } from "./ui.js";
+import { SkillState } from "./state.js";
 
 let CONFIG = null;
 
@@ -12,7 +13,7 @@ async function loadConfig() {
 await loadConfig();
 
 document.getElementById("skillBtn").onclick = async () => {
-  if (!state.skillReady) return;
+  //if (!state.skillReady) return;
 
   if (state.skillState === SkillState.READY) {
   state.skillState = SkillState.COOLDOWN;
