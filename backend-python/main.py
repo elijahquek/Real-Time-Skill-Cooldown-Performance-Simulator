@@ -14,8 +14,14 @@ app.add_middleware(
 
 @app.post("/evaluate")
 def evaluate(req: SkillRequest):
-    result = evaluate_skill(req.stamina)
-    return { "result": result }
+    try:
+        result = evaluate_skill(req.current_stamina, load_config())
+        return result
+    except ValueError as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
 
 @app.post("/log")
 def log_event(event: dict):
